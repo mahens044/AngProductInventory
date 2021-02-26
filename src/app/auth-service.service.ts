@@ -34,6 +34,7 @@ export class AuthServiceService {
         Manufacturer: formData.Manufacturer,
         Price: formData.Price,
         Quantity: formData.Quantity,
+        completed:false
       })
       .pipe(
         catchError((err) => {
@@ -66,16 +67,16 @@ export class AuthServiceService {
 
   deleteProducts(Url) {
     console.log(Url);
-   return this.http.delete(Url)
-   .pipe(
-        catchError((err) => {
-          throw 'error in deleting: ' + err;
-        })
-      );
-  //  .toPromise()
-  //  .then( (Response) => {
-  //   console.log(Response);
-  // })
+   return this.http.delete(Url).toPromise()
+   .then( (Response) => {
+    console.log(Response+"deleting");
+  })
+
+  //  .pipe(
+  //       catchError((err) => {
+  //         throw 'error in deleting: ' + err;
+  //       })
+  //     );
 
   }
 

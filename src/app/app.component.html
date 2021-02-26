@@ -1,32 +1,3 @@
-<!--
-<p>
-  <mat-toolbar color="primary">
-      <button mat-button routerLink="/products" >
-        Products Inventory
-      </button >
-
-    <span class="spacer"></span>
-    <button mat-button [matMenuTriggerFor]="menu">Auth</button>
-        <mat-menu #menu="matMenu">
-          <div *ngIf="!user">
-          <button mat-menu-item  (click)='Auth("1")' [disabled]="user" >Login</button>
-            <button mat-menu-item  (click)='Auth("0")' >SignUp</button>
-          </div>
-          <div *ngIf="user">
-            <button mat-menu-item  (click)='Auth("2")' [disabled]="!user" >LogOut</button>
-          </div>
-        </mat-menu>
-
-    <button mat-button routerLink="/about" routerLinkActive="active">
-      About
-    </button >
-
-  </mat-toolbar>
-</p>
-
-<router-outlet></router-outlet>
-
- -->
 
  <mat-toolbar color="primary">
   <mat-toolbar-row>
@@ -53,15 +24,16 @@
 </button >
 </mat-toolbar-row>
 </mat-toolbar>
+
 <mat-sidenav-container>
   <mat-sidenav #sidenav>
     <mat-nav-list>
 
       <a mat-list-item  [routerLink]="'/app-feature'"  (click)="sidenav.toggle()"> View Product List(Summary)</a>
-      <a mat-list-item  > View Product Detail </a>
+      <!-- <a mat-list-item  > View Product Detail </a> -->
       <a mat-list-item [routerLink]="'/app-add-product'" (click)="sidenav.toggle()"> Add Product </a>
-      <a mat-list-item > Update Product </a>
-      <a mat-list-item > Delete Product </a>
+      <!-- <a mat-list-item > Update Product </a> -->
+      <!-- <a mat-list-item > Delete Product </a> -->
       <a mat-list-item > Chart - Top Viewed Products </a>
 
       <a mat-list-item (click)="sidenav.toggle()" href="" mat-list-item>Close</a>

@@ -19,8 +19,8 @@ export class AddProductComponent implements OnInit {
   ) {
     this.route.queryParams.subscribe((params) => {
       this.prod = this.router.getCurrentNavigation().extras.state;
-      this.Name = this.prod.productdetails.queryParams.Name;
-      console.log('Prod details ' + this.prod.productdetails.queryParams.Name);
+      // this.Name = this.prod.productdetails.queryParams.Name;
+      // console.log('Prod details ' + this.prod.productdetails.queryParams.Name);
     });
   }
 

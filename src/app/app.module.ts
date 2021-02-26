@@ -30,6 +30,7 @@ import { DialogComponent } from './Utilities/dialog/dialog.component';
 import { MatSelectModule } from '@angular/material/select';
 import { LogOutComponent } from './log-out/log-out.component';
 import { AddProductComponent } from './add-product/add-product.component';
+import { ViewProductDetailsComponent } from './view-product-details/view-product-details.component';
 
 @NgModule({
   declarations: [
@@ -39,7 +40,8 @@ import { AddProductComponent } from './add-product/add-product.component';
     FeatureComponent,
     DialogComponent,
     LogOutComponent,
-    AddProductComponent
+    AddProductComponent,
+    ViewProductDetailsComponent
   ],
   imports: [
     BrowserModule,
