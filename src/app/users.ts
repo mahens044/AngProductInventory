@@ -8,6 +8,7 @@ export class Products{
   Price : string;
   Quantity : string ;
   completed: boolean;
+  views:number;
 
   constructor(Name, Description, Manufacturer, Price, Quantity,completed){
     // this.CheckBox =check;
@@ -17,6 +18,7 @@ export class Products{
     this.Price = Price ;
     this.Quantity = Quantity;
     this.completed = false;
+    this.views = 0;
   }
 
 }

@@ -3,13 +3,17 @@ import { CanActivate, ActivatedRouteSnapshot, RouterStateSnapshot, UrlTree } fro
 import { AuthServiceService } from '../auth-service.service';
 
 import { Observable } from 'rxjs';
+import { MatDialog } from '@angular/material/dialog';
+import { DialogUnauthorizedComponent } from 'src/app/dialog-unauthorized/dialog-unauthorized.component';
 
 @Injectable({
   providedIn: 'root'
 })
 export class AuthGuard implements CanActivate {
 
-  constructor(private authService:AuthServiceService){
+  constructor(private authService:AuthServiceService,
+              private dialog:MatDialog
+    ){
 
   }
   canActivate(
@@ -23,6 +27,8 @@ export class AuthGuard implements CanActivate {
       }
       else{
         // alert("AuthGuard Sorry"+this.authService.isLoggedIn);
+        this.dialog.open(DialogUnauthorizedComponent);
+
         console.log('AuthGuard  afd'+this.authService.isLoggedIn);
 
         return false;

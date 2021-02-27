@@ -7,6 +7,8 @@ import { AuthComponent } from './auth/auth.component';
 import { AuthGuard } from './auth/auth.guard';
 import { FeatureComponent } from './feature/feature.component';
 import { LogOutComponent } from './log-out/log-out.component';
+import { TopViewedProductComponent } from './top-viewed-product/top-viewed-product.component';
+import { ViewProductDetailsComponent } from './view-product-details/view-product-details.component';
 
 const routes: Routes = [
 
@@ -25,8 +27,23 @@ const routes: Routes = [
 
   },
   {
-    path:'app-add-product',component:AddProductComponent
+    path:'app-add-product',component:AddProductComponent,
+    canActivate:[AuthGuard]
+  },
+  {
+    path:'app-view-product-details',component:ViewProductDetailsComponent,
+    canActivate:[AuthGuard]
+  },
+  {
+    path:'app-view-product-details/:id',component:ViewProductDetailsComponent,
+    canActivate:[AuthGuard]
+  },
+  {
+    path:'app-top-viewed-product',component:TopViewedProductComponent
+    // canActivate:[AuthGuard]
   }
+
+
 ];
 
 @NgModule({

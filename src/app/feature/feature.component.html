@@ -2,9 +2,9 @@
   <mat-toolbar-row>
     <h2>Product List Summary</h2>
     <span class="spacer"></span>
-    <button mat-raised-button color="accent" (click)="isClicked()">
+    <!-- <button mat-raised-button color="accent" (click)="isClicked()">
       Customize Product View
-    </button>
+    </button> -->
   </mat-toolbar-row>
 </mat-toolbar>
 <ng-container *ngIf="clicked">
@@ -25,12 +25,10 @@
 <!-- <form> -->
 
 <table mat-table [dataSource]="products" class="mat-elevation-z8">
-  <ng-container  matColumnDef="CheckBox">
+  <ng-container  matColumnDef="CheckBox" *ngIf='userExist'>
     <th class="w-75" mat-header-cell *matHeaderCellDef>
-      <!-- <button href ="#" color="red" (click)="deleteMultipleRows()"> -->
 
         <span class="material-icons " (click)="deleteMultipleRows()"> delete_outline </span>
-      <!-- </a> -->
     </th>
     <td mat-cell *matCellDef="let product">
       <mat-checkbox
@@ -82,84 +80,22 @@
       </div>
     </td>
   </ng-container>
-
-  <ng-container matColumnDef="Manufacturer">
-    <th mat-header-cell *matHeaderCellDef>Manufacturer</th>
-    <td mat-cell *matCellDef="let product">
-      <div *ngIf="!product.isEdit">
-        <span #spanHeader>
-          {{ product.Manufacturer }}
-        </span>
-      </div>
-      <div *ngIf="product.isEdit">
-        <mat-form-field>
-          <input
-            type="text"
-            matInput
-            [value]="product.Manufacturer"
-            (input)="product.Manufacturer = $event.target.value"
-          />
-        </mat-form-field>
-      </div>
-    </td>
-  </ng-container>
-  <ng-container matColumnDef="Price">
-    <th mat-header-cell *matHeaderCellDef>Price</th>
-    <td mat-cell *matCellDef="let product">
-      <div *ngIf="!product.isEdit">
-        <span #spanHeader>
-          {{ product.Price }}
-        </span>
-      </div>
-      <div *ngIf="product.isEdit">
-        <mat-form-field>
-
-          <input
-            type="text"
-            matInput
-            [value]="product.Price"
-            (input)="product.Price = $event.target.value"
-          />
-        </mat-form-field>
-      </div>
-    </td>
-  </ng-container>
-  <ng-container matColumnDef="Quantity">
-    <th mat-header-cell *matHeaderCellDef>Quantity</th>
-    <td mat-cell *matCellDef="let product">
-      <div *ngIf="!product.isEdit">
-        <span #spanHeader>
-          {{ product.Quantity }}
-        </span>
-      </div>
-      <div *ngIf="product.isEdit">
-        <mat-form-field>
-
-          <input
-            type="text"
-            matInput
-            [value]="product.Quantity"
-            (input)="product.Quantity = $event.target.value"
-          />
-        </mat-form-field>
-      </div>
-    </td>
-  </ng-container>
-  <ng-container matColumnDef="ButtonEdit">
+  <ng-container matColumnDef="ButtonView">
     <th mat-header-cell *matHeaderCellDef></th>
     <td mat-cell *matCellDef="let product">
       <span *ngIf="!product.isEdit">
-        <button (click)="UpdateData(product)" mat-raised-button color="primary">
-          Edit
-        </button>
-      </span>
-      <span *ngIf="product.isEdit">
-        <button (click)="UpdateData(product)" mat-raised-button color="primary">
-          Done
+        <button (click)="ViewData(product)" mat-raised-button color="primary">
+          View
         </button>
       </span>
      </td>
   </ng-container>
+
   <tr mat-header-row *matHeaderRowDef="colums"></tr>
   <tr mat-row *matRowDef="let row; columns: colums"></tr>
 </table>
+<div *ngIf="this.products.length == 0">
+  <h2>
+  No data found
+</h2>
+</div>

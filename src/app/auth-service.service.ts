@@ -34,7 +34,8 @@ export class AuthServiceService {
         Manufacturer: formData.Manufacturer,
         Price: formData.Price,
         Quantity: formData.Quantity,
-        completed:false
+        completed:false,
+        views:0
       })
       .pipe(
         catchError((err) => {
@@ -46,6 +47,9 @@ export class AuthServiceService {
   getProductById(url,id){
     const NewUrl = url + '/'+id;
     return this.http.get<Products[]>(NewUrl);
+  }
+  getProductSummaryService(url: string) {
+    return this.http.get<Products[]>(url);
   }
   updateProduct(url,formData){
     console.log("In update "+formData.Description)
@@ -90,7 +94,7 @@ export class AuthServiceService {
             duration: 1000,
           });
           callback(this.isLoggedIn);
-          // return this.isLoggedIn;
+          return true;
         } else if (i == Object.keys(Response).length - 1) {
           console.log('Fail sent' + email);
           console.log('Fail got ' + Response[i].Email);
@@ -98,7 +102,7 @@ export class AuthServiceService {
           this._snackBar.open('No User Found ', '', {
             duration: 2000,
           });
-          return false;
+          // return false;
         }
       }
     });
@@ -113,8 +117,17 @@ export class AuthServiceService {
       return false;
     }
   }
+  // var AllProducts;
+  topViewedProducts(){
+    return this.http.get<Products[]>('http://localhost:3000/comments').subscribe((Respo)=>{
+      console.log(Respo);
+      for(var i=0;i<Respo.length;i++){
+        console.log("iubkj "+Respo[i]['views']);
 
-  getProductSummaryService(url: string) {
-    return this.http.get<Products[]>(url);
+      }
+
+     });
+
   }
+
 }

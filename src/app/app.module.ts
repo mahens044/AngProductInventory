@@ -1,5 +1,6 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
+import { ChartsModule } from 'ng2-charts';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -31,6 +32,8 @@ import { MatSelectModule } from '@angular/material/select';
 import { LogOutComponent } from './log-out/log-out.component';
 import { AddProductComponent } from './add-product/add-product.component';
 import { ViewProductDetailsComponent } from './view-product-details/view-product-details.component';
+import { DialogUnauthorizedComponent } from './dialog-unauthorized/dialog-unauthorized.component';
+import { TopViewedProductComponent } from './top-viewed-product/top-viewed-product.component';
 
 @NgModule({
   declarations: [
@@ -41,7 +44,9 @@ import { ViewProductDetailsComponent } from './view-product-details/view-product
     DialogComponent,
     LogOutComponent,
     AddProductComponent,
-    ViewProductDetailsComponent
+    ViewProductDetailsComponent,
+    DialogUnauthorizedComponent,
+    TopViewedProductComponent
   ],
   imports: [
     BrowserModule,
@@ -49,6 +54,7 @@ import { ViewProductDetailsComponent } from './view-product-details/view-product
     MatSliderModule,
     MatToolbarModule,
     FormsModule,
+    ChartsModule,
     MatFormFieldModule,
     MatInputModule,
     MatIconModule,

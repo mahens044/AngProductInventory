@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { MatSnackBar } from '@angular/material/snack-bar';
 import { Router } from '@angular/router';
 import { AuthServiceService } from '../auth-service.service';
 import { Products } from '../users';
@@ -11,8 +12,9 @@ import { Products } from '../users';
 export class FeatureComponent implements OnInit {
   constructor(
     private authService: AuthServiceService,
-    private router: Router
-  ) {}
+            private _snackBar: MatSnackBar,
+            private router: Router) {}
+
   url: string = 'http://localhost:3000/comments';
   tableHeaders: string[] = [
     'Name',
@@ -22,13 +24,33 @@ export class FeatureComponent implements OnInit {
     'Quantity',
   ];
   clicked = false;
+  userExist;
   ngOnInit(): void {
+    this.userExist = this.authService.isLoggedIn ;
+    if(this.userExist){
+      this.displayCheckBox();
+    }
+
     this.authService
       .getProductSummaryService(this.url)
       .subscribe((Response) => {
         console.log(Response);
         this.products = Response;
+        if(this.products.length==0){
+          // alert("No data");
+          this._snackBar.open("No data Found",' No',{
+            duration:2000
+          });
+
+          console.log("No data"+this.products)
+        }
+        // console.log("No1 data"+this.products)
       });
+
+  }
+  displayCheckBox(){
+    this.colums = ['CheckBox','Name','Description', 'ButtonView'];
+
   }
   viewClicked(shoes) {
     this.clicked = false;
@@ -38,6 +60,7 @@ export class FeatureComponent implements OnInit {
   isClicked() {
     this.clicked = true;
   }
+
   completed = false;
   ListTobeDeleted = [];
   checkedList(prod) {
@@ -52,13 +75,13 @@ export class FeatureComponent implements OnInit {
   }
 
   colums = [
-    'CheckBox',
+    // 'CheckBox',
     'Name',
     'Description',
-    'Manufacturer',
-    'Price',
-    'Quantity',
-    'ButtonEdit',
+    // 'Manufacturer',
+    // 'Price',
+    // 'Quantity',
+    'ButtonView',
   ];
   products: Products[] = [];
   getProductSummary() {
@@ -71,6 +94,16 @@ export class FeatureComponent implements OnInit {
   }
   Url;
   buttonName = 'Edit';
+
+  ViewData(productData) {
+    // console.log(productData['views']);
+    if(this.authService.isLoggedIn )
+    productData['views'] = +productData['views']+ 1;
+
+    console.log(productData['views']);
+
+    this.router.navigate(['app-view-product-details',productData['id']]);
+  }
   UpdateData(element) {
     element.isEdit = !element.isEdit;
     if (element.isEdit) this.buttonName = 'Done';
@@ -81,16 +114,16 @@ export class FeatureComponent implements OnInit {
 
     this.authService.updateProduct(this.Url, element);
   }
- OnLoad(){
+  OnLoad() {
     this.products = this.products;
-    console.log("Products loaded")
+    console.log('Products loaded');
   }
   async deleteMultipleRows() {
     let dataArray = this.ListTobeDeleted;
     for (let i = 0; i < dataArray.length; i++) {
       this.Url = 'http://localhost:3000/comments/' + dataArray[i];
-      await this.authService.deleteProducts(this.Url).then((Response)=> {
-        console.log("Deleted")
+      await this.authService.deleteProducts(this.Url).then((Response) => {
+        console.log('Deleted');
       });
 
       this.router.routeReuseStrategy.shouldReuseRoute = () => false;
@@ -99,9 +132,7 @@ export class FeatureComponent implements OnInit {
     }
   }
 
-  ViewProductDetail(){
-
-  }
+  ViewProductDetail() {}
   addProduct() {
     // this.authService.addProductSummaryService(this.url)
   }
