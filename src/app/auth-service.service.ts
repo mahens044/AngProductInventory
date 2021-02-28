@@ -3,7 +3,7 @@ import { HttpClient } from '@angular/common/http';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { Products } from './users';
 import { Observable } from 'rxjs';
-import { map, catchError } from 'rxjs/operators';
+import { map, catchError, tap } from 'rxjs/operators';
 
 @Injectable({
   providedIn: 'root',
@@ -49,7 +49,13 @@ export class AuthServiceService {
     return this.http.get<Products[]>(NewUrl);
   }
   getProductSummaryService(url: string) {
-    return this.http.get<Products[]>(url);
+    return this.http.get<Products[]>(url)
+    // .pipe(
+    //   tap(results => {
+    //     results.sort();
+    //     // console.log("Sort ",results.sort(a:results['views']));
+    //   })
+    // );
   }
   updateProduct(url,formData){
     console.log("In update "+formData.Description)
@@ -69,6 +75,19 @@ export class AuthServiceService {
     // );
   }
 
+  UpdateViews(url,ProductData){
+    return this.http.put<Products>(url, {
+      Name: ProductData['Name'],
+      Description: ProductData['Description'],
+      Manufacturer: ProductData['Manufacturer'],
+      Price: ProductData['Price'],
+      Quantity: ProductData['Quantity'],
+      views:ProductData['views']
+    })
+    //.toPromise().then( (Response) => {
+    //   console.log("Views ",Response);
+    // })
+  }
   deleteProducts(Url) {
     console.log(Url);
    return this.http.delete(Url).toPromise()

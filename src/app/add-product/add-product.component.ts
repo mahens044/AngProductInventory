@@ -19,16 +19,29 @@ export class AddProductComponent implements OnInit {
   ) {
     this.route.queryParams.subscribe((params) => {
       this.prod = this.router.getCurrentNavigation().extras.state;
-      // this.Name = this.prod.productdetails.queryParams.Name;
-      // console.log('Prod details ' + this.prod.productdetails.queryParams.Name);
+
     });
   }
 
   ngOnInit(): void {}
+  ngDoCheck() {
+        console.log("In Add")
+    // this.router.navigate(['about']);
+  }
   Add(formData: NgForm) {
     this.authService.saveAddProduct(formData.value).subscribe((Response) => {
       console.log('Form Data:', Response);
       this.router.navigate(['app-feature']);
     });
   }
+  canExit() : boolean {
+
+    if (confirm("Do you wish to Please confirm")) {
+      console.log("you ");
+        return true
+      } else {
+        return false
+      }
+    }
+
 }

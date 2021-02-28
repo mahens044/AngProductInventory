@@ -8,14 +8,13 @@ import { filter } from 'rxjs/operators';
 @Component({
   selector: 'app-top-viewed-product',
   templateUrl: './top-viewed-product.component.html',
-  styleUrls: ['./top-viewed-product.component.css']
+  styleUrls: ['./top-viewed-product.component.css'],
 })
 export class TopViewedProductComponent implements OnInit {
-
   public pieChartOptions: ChartOptions = {
     responsive: true,
     legend: {
-      position: 'top',
+      position: 'left',
     },
     plugins: {
       datalabels: {
@@ -24,69 +23,106 @@ export class TopViewedProductComponent implements OnInit {
           return label;
         },
       },
-    }
+    },
   };
-  public pieChartLabels: Label[] = [['Download', 'Sales'], ['In', 'Store', 'Sales'], 'Mail Sales'];
-  public pieChartData: number[] = [300, 500, 100];
+  constructor(private authService: AuthServiceService) {}
+  tempResponse: any = { };
+  tempObj : any ={};
+  NameArr: any = [];
+  ViewArr: any = [];
+   NameArr1 : any=[]
+   ViewArr1: any = []
+
+  ngOnInit(): void {
+    this.authService
+      .getProductSummaryService('http://localhost:3000/comments')
+      .subscribe((Response) => {
+        console.log('Top ', Response[0]['Name']);
+        this.tempResponse = Response;
+
+        for (var i = 0; i < Response.length; i++) {
+          this.NameArr[i] = Response[i].Name;
+          this.ViewArr[i] = Response[i].views;
+        }
+
+        this.tempObj = this.combineArrays(this.NameArr,this.ViewArr);
+        console.log(this.tempObj);
+        console.log(this.tempObj.sort(function(a, b) {
+          return b.view - a.view;
+        }));
+
+        console.log("Converted ",this.tempObj);
+      });
+  }
+  name:any
+   combineArrays = (first, second) => {
+
+     return  first.map(function (x, i) {
+      return {name : x,
+        view : second[i]}
+  });
+
+ };
+
+ public pieChartLabels: Label[] = this.NameArr;
+
+  public pieChartData: number[] = this.ViewArr;
+
   public pieChartType: ChartType = 'pie';
   public pieChartLegend = true;
   // public pieChartPlugins = [pluginDataLabels];
   public pieChartColors = [
     {
-      backgroundColor: ['rgba(255,0,0,0.3)', 'rgba(0,255,0,0.3)', 'rgba(0,0,255,0.3)'],
+      backgroundColor: [
+        'rgba(255,0,0,0.3)',
+        'rgba(0,255,0,0.3)',
+        'rgba(0,0,255,0.3)',
+      ],
     },
   ];
+  topProd:number;
+  changeLabels(topProd:number): void {
+    // topProd = this.tempResponse.length;
+    console.log("Value " ,topProd);
+    console.log("In button",this.tempResponse);
+    for (var i = 0; i < topProd; i++) {
+      this.NameArr1[i] = this.tempObj[i]['name'];
+      this.ViewArr1[i] = this.tempObj[i]['view'];
+    }
 
-  constructor(private authService:AuthServiceService ) { }
+    this.pieChartLabels = this.NameArr1;
 
-  ngOnInit(): void {
-    this.authService.getProductSummaryService('http://localhost:3000/comments')
-    .subscribe((Response) => {
-      console.log("Top ",Response)
-    });
-    const source = from(Response);
-
-    const example = source.pipe(filter(views => views <1));
-    console.log("Exam ",example);
-    // for(var i=0;i<Response.length;i++){
-    //   Response[i]['views'].
-
-    // }
+    this.pieChartData = this.ViewArr1;
+    console.log(this.NameArr1)
 
   }
-
   // events
-  public chartClicked({ event, active }: { event: MouseEvent, active: {}[] }): void {
+  public chartClicked({
+    event,
+    active,
+  }: {
+    event: MouseEvent;
+    active: {}[];
+  }): void {
     console.log(event, active);
   }
 
-  public chartHovered({ event, active }: { event: MouseEvent, active: {}[] }): void {
+  public chartHovered({
+    event,
+    active,
+  }: {
+    event: MouseEvent;
+    active: {}[];
+  }): void {
     console.log(event, active);
   }
 
-  changeLabels(): void {
-    const words = ['hen', 'variable', 'embryo', 'instal', 'pleasant', 'physical', 'bomber', 'army', 'add', 'film',
-      'conductor', 'comfortable', 'flourish', 'establish', 'circumstance', 'chimney', 'crack', 'hall', 'energy',
-      'treat', 'window', 'shareholder', 'division', 'disk', 'temptation', 'chord', 'left', 'hospital', 'beef',
-      'patrol', 'satisfied', 'academy', 'acceptance', 'ivory', 'aquarium', 'building', 'store', 'replace', 'language',
-      'redeem', 'honest', 'intention', 'silk', 'opera', 'sleep', 'innocent', 'ignore', 'suite', 'applaud', 'funny'];
-    const randomWord = () => words[Math.trunc(Math.random() * words.length)];
-    this.pieChartLabels = Array.apply(null, { length: 3 }).map(_ => randomWord());
-  }
 
-  addSlice(): void {
-    this.pieChartLabels.push(['Line 1', 'Line 2', 'Line 3']);
-    this.pieChartData.push(400);
-    this.pieChartColors[0].backgroundColor.push('rgba(196,79,244,0.3)');
-  }
 
-  removeSlice(): void {
-    this.pieChartLabels.pop();
-    this.pieChartData.pop();
-    this.pieChartColors[0].backgroundColor.pop();
-  }
 
-  changeLegendPosition(): void {
-    this.pieChartOptions.legend.position = this.pieChartOptions.legend.position === 'left' ? 'top' : 'left';
-  }
+  // changeLegendPosition(): void {
+  //   // this.pieChartOptions.legend.position =
+  //     // this.pieChartOptions.legend.position === 'left' ? 'top' : 'left';
+  //     this.pieChartOptions.legend.position === 'left' ;
+  // }
 }

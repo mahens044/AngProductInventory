@@ -1,5 +1,17 @@
 <div>
   <div>
+    <br>
+    <div class="View">
+    <label>Show top </label>
+    <input type="number"
+    [(ngModel)] ="topProd"
+    min=1
+    [max] = "this.tempResponse.length"
+    >
+    <label> viewed products</label>
+    <br>
+    <button mat-button color="primary" (click)="changeLabels(topProd)">View</button>
+  </div>
     <div class="chart">
       <canvas baseChart
         [data]="pieChartData"
@@ -13,9 +25,8 @@
   </div>
 </div>
 <div>
-  <button class="primary" (click)="pieChartLegend=!pieChartLegend">Toggle Legend</button>
-  <button class="primary" (click)="changeLabels()">Change Labels</button>
-  <button class="primary" (click)="addSlice()">Add Slice</button>
-  <button class="primary" (click)="removeSlice()">Remove Slice</button>
-  <button class="primary" (click)="changeLegendPosition()">Change Legend Position</button>
+  <!-- <button class="primary" (click)="pieChartLegend=!pieChartLegend">Toggle Legend</button> -->
+  <!-- <button class="primary" (click)="changeLabels()">Top 3</button>
+  <button class="primary" (click)="changeLabels()">Top 3</button> -->
+ <!-- <button class="primary" (click)="changeLegendPosition()">Change Legend Position</button> -->
 </div>

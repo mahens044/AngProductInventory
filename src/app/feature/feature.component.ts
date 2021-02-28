@@ -95,14 +95,21 @@ export class FeatureComponent implements OnInit {
   Url;
   buttonName = 'Edit';
 
-  ViewData(productData) {
+   ViewData(productData) {
     // console.log(productData['views']);
     if(this.authService.isLoggedIn )
     productData['views'] = +productData['views']+ 1;
 
     console.log(productData['views']);
+    console.log("Updated view ",productData);
+    this.Url = 'http://localhost:3000/comments/' + productData['id'];
+    this.authService.UpdateViews(this.Url,productData)
+    .subscribe((Response) => {
+      // console.log("Response in ViedData ",Response)  ;
+      // console.log("Response in ViedData ",Response['id']);
+      this.router.navigate(['app-view-product-details',Response['id']]);
+    } );
 
-    this.router.navigate(['app-view-product-details',productData['id']]);
   }
   UpdateData(element) {
     element.isEdit = !element.isEdit;

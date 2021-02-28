@@ -5,6 +5,7 @@ import { AddProductComponent } from './add-product/add-product.component';
 import { AppComponent } from './app.component';
 import { AuthComponent } from './auth/auth.component';
 import { AuthGuard } from './auth/auth.guard';
+import { AwayGuardGuard } from './away-guard.guard';
 import { FeatureComponent } from './feature/feature.component';
 import { LogOutComponent } from './log-out/log-out.component';
 import { TopViewedProductComponent } from './top-viewed-product/top-viewed-product.component';
@@ -28,7 +29,9 @@ const routes: Routes = [
   },
   {
     path:'app-add-product',component:AddProductComponent,
-    canActivate:[AuthGuard]
+    canActivate:[AuthGuard],
+    canDeactivate:[AwayGuardGuard]
+
   },
   {
     path:'app-view-product-details',component:ViewProductDetailsComponent,
@@ -36,8 +39,7 @@ const routes: Routes = [
   },
   {
     path:'app-view-product-details/:id',component:ViewProductDetailsComponent,
-    canActivate:[AuthGuard]
-  },
+    canActivate:[AuthGuard]  },
   {
     path:'app-top-viewed-product',component:TopViewedProductComponent
     // canActivate:[AuthGuard]
