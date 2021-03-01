@@ -2,8 +2,6 @@ import { Component, OnInit } from '@angular/core';
 import { ChartType, ChartOptions } from 'chart.js';
 import { Label } from 'ng2-charts';
 import { AuthServiceService } from '../auth-service.service';
-import { from } from 'rxjs';
-import { filter } from 'rxjs/operators';
 import { MatSnackBar } from '@angular/material/snack-bar';
 
 @Component({
@@ -26,13 +24,16 @@ export class TopViewedProductComponent implements OnInit {
       },
     },
   };
-  constructor(private authService: AuthServiceService, private _snackbar:MatSnackBar) {}
-  tempResponse: any = { };
-  tempObj : any ={};
+  constructor(
+    private authService: AuthServiceService,
+    private _snackbar: MatSnackBar
+  ) {}
+  tempResponse: any = {};
+  tempObj: any = {};
   NameArr: any = [];
   ViewArr: any = [];
-   NameArr1 : any=[]
-   ViewArr1: any = []
+  NameArr1: any = [];
+  ViewArr1: any = [];
 
   ngOnInit(): void {
     this.authService
@@ -42,31 +43,29 @@ export class TopViewedProductComponent implements OnInit {
         this.tempResponse = Response;
 
         for (var i = 0; i < Response.length; i++) {
-
           this.NameArr[i] = Response[i].Name;
           this.ViewArr[i] = Response[i].views;
         }
 
-        this.tempObj = this.combineArrays(this.NameArr,this.ViewArr);
+        this.tempObj = this.combineArrays(this.NameArr, this.ViewArr);
         console.log(this.tempObj);
-        console.log(this.tempObj.sort(function(a, b) {
-          return b.view - a.view;
-        }));
+        console.log(
+          this.tempObj.sort(function (a, b) {
+            return b.view - a.view;
+          })
+        );
 
-        console.log("Converted ",this.tempObj);
+        console.log('Converted ', this.tempObj);
       });
   }
-  name:any
-   combineArrays = (first, second) => {
+  name: any;
+  combineArrays = (first, second) => {
+    return first.map(function (x, i) {
+      return { name: x, view: second[i] };
+    });
+  };
 
-     return  first.map(function (x, i) {
-      return {name : x,
-        view : second[i]}
-  });
-
- };
-
- public pieChartLabels: Label[] = this.NameArr;
+  public pieChartLabels: Label[] = this.NameArr;
 
   public pieChartData: number[] = this.ViewArr;
 
@@ -82,17 +81,17 @@ export class TopViewedProductComponent implements OnInit {
       ],
     },
   ];
-  topProd:number;
-  changeLabels(topProd:number): void {
+  topProd: number;
+  changeLabels(topProd: number): void {
     // topProd = this.tempResponse.length;
-    console.log("Value " ,topProd);
-    console.log("In button",this.tempResponse);
+    console.log('Value ', topProd);
+    console.log('In button', this.tempResponse);
     for (var i = 0; i < topProd; i++) {
-      if(this.tempObj[i]['view'] == 0){
-        this._snackbar.open('Only '+ i +' Products have views', '', {
+      if (this.tempObj[i]['view'] == 0) {
+        this._snackbar.open('Only ' + i + ' Products have views', '', {
           duration: 2000,
         });
-         break;
+        break;
       }
       this.NameArr1[i] = this.tempObj[i]['name'];
       this.ViewArr1[i] = this.tempObj[i]['view'];
@@ -101,8 +100,7 @@ export class TopViewedProductComponent implements OnInit {
     this.pieChartLabels = this.NameArr1;
 
     this.pieChartData = this.ViewArr1;
-    console.log(this.NameArr1)
-
+    console.log(this.NameArr1);
   }
   // events
   public chartClicked({
@@ -124,5 +122,4 @@ export class TopViewedProductComponent implements OnInit {
   }): void {
     console.log(event, active);
   }
-
 }

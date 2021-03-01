@@ -2,66 +2,39 @@
   <mat-card-title class="custom-font"> Add Products</mat-card-title>
   <mat-card-content class="custom-form-content">
     <form #AddProduct="ngForm" (ngSubmit)="Add(AddProduct)">
-<mat-form-field appearance="fill">
-  <mat-label>Product Name</mat-label>
-  <input
-  matInput
-  type="text"
-  name="Name"
-  ngModel
-  required
-  min="3"
+      <mat-form-field appearance="fill">
+        <mat-label>Product Name</mat-label>
+        <input matInput type="text" name="Name" ngModel required min="3" />
+      </mat-form-field>
+      <mat-form-field appearance="fill">
+        <mat-label>Product Description</mat-label>
+        <textarea matInput name="Description" ngModel required></textarea>
+      </mat-form-field>
 
-  >
-</mat-form-field>
-<!-- <mat-form-field appearance="fill">
-  <mat-label>Select</mat-label>
-  <mat-select>
-    <mat-option value="one">First option</mat-option>
-    <mat-option value="two">Second option</mat-option>
-  </mat-select>
-</mat-form-field> -->
-<mat-form-field appearance="fill">
-  <mat-label>Product Description</mat-label>
-  <textarea matInput
-  name="Description"
-  ngModel
-  required
-  ></textarea>
-</mat-form-field>
+      <mat-form-field appearance="fill">
+        <mat-label>Manufacturer</mat-label>
+        <input matInput type="text" name="Manufacturer" ngModel required />
+      </mat-form-field>
 
-<mat-form-field appearance="fill">
-  <mat-label>Manufacturer</mat-label>
-  <input matInput type="text"
-  name="Manufacturer"
-  ngModel
-  required
-  >
-</mat-form-field>
+      <mat-form-field appearance="fill">
+        <mat-label>Price(Rupees)</mat-label>
+        <input matInput type="number" name="Price" ngModel required />
+      </mat-form-field>
 
-<mat-form-field appearance="fill">
-  <mat-label>Price(Rupees)</mat-label>
-  <input matInput
-  type="number"
-  name="Price"
-  ngModel
-  required
-  >
-</mat-form-field>
-
-<mat-form-field appearance="fill">
-  <mat-label>Quantity</mat-label>
-  <input type="number" matInput
-  name="Quantity"
-  type="number"
-  ngModel
-  required
-  >
-</mat-form-field>
-<mat-card-actions class="button-align">
-  <button mat-raised-button color="primary">ADD</button>
-</mat-card-actions>
-</form>
-</mat-card-content>
+      <mat-form-field appearance="fill">
+        <mat-label>Quantity</mat-label>
+        <input
+          type="number"
+          matInput
+          name="Quantity"
+          type="number"
+          ngModel
+          required
+        />
+      </mat-form-field>
+      <mat-card-actions class="button-align">
+        <button mat-raised-button color="primary">ADD</button>
+      </mat-card-actions>
+    </form>
+  </mat-card-content>
 </mat-card>
-

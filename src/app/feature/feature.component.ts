@@ -12,8 +12,9 @@ import { Products } from '../users';
 export class FeatureComponent implements OnInit {
   constructor(
     private authService: AuthServiceService,
-            private _snackBar: MatSnackBar,
-            private router: Router) {}
+    private _snackBar: MatSnackBar,
+    private router: Router
+  ) {}
 
   url: string = 'http://localhost:3000/comments';
   tableHeaders: string[] = [
@@ -26,8 +27,8 @@ export class FeatureComponent implements OnInit {
   clicked = false;
   userExist;
   ngOnInit(): void {
-    this.userExist = this.authService.isLoggedIn ;
-    if(this.userExist){
+    this.userExist = this.authService.isLoggedIn;
+    if (this.userExist) {
       this.displayCheckBox();
     }
 
@@ -36,21 +37,17 @@ export class FeatureComponent implements OnInit {
       .subscribe((Response) => {
         console.log(Response);
         this.products = Response;
-        if(this.products.length==0){
-          // alert("No data");
-          this._snackBar.open("No data Found",' No',{
-            duration:2000
+        if (this.products.length == 0) {
+          this._snackBar.open('No data Found', ' No', {
+            duration: 2000,
           });
 
-          console.log("No data"+this.products)
+          console.log('No data' + this.products);
         }
-        // console.log("No1 data"+this.products)
       });
-
   }
-  displayCheckBox(){
-    this.colums = ['CheckBox','Name','Description', 'ButtonView'];
-
+  displayCheckBox() {
+    this.colums = ['CheckBox', 'Name', 'Description', 'ButtonView'];
   }
   viewClicked(shoes) {
     this.clicked = false;
@@ -95,21 +92,21 @@ export class FeatureComponent implements OnInit {
   Url;
   buttonName = 'Edit';
 
-   ViewData(productData) {
+  ViewData(productData) {
     // console.log(productData['views']);
-    if(this.authService.isLoggedIn )
-    productData['views'] = +productData['views']+ 1;
+    if (this.authService.isLoggedIn)
+      productData['views'] = +productData['views'] + 1;
 
     console.log(productData['views']);
-    console.log("Updated view ",productData);
+    console.log('Updated view ', productData);
     this.Url = 'http://localhost:3000/comments/' + productData['id'];
-    this.authService.UpdateViews(this.Url,productData)
-    .subscribe((Response) => {
-      // console.log("Response in ViedData ",Response)  ;
-      // console.log("Response in ViedData ",Response['id']);
-      this.router.navigate(['app-view-product-details',Response['id']]);
-    } );
-
+    this.authService
+      .UpdateViews(this.Url, productData)
+      .subscribe((Response) => {
+        // console.log("Response in ViedData ",Response)  ;
+        // console.log("Response in ViedData ",Response['id']);
+        this.router.navigate(['app-view-product-details', Response['id']]);
+      });
   }
   UpdateData(element) {
     element.isEdit = !element.isEdit;

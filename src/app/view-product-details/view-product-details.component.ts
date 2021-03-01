@@ -6,7 +6,7 @@ import { Products } from '../users';
 @Component({
   selector: 'app-view-product-details',
   templateUrl: './view-product-details.component.html',
-  styleUrls: ['./view-product-details.component.css']
+  styleUrls: ['./view-product-details.component.css'],
 })
 export class ViewProductDetailsComponent implements OnInit {
   constructor(
@@ -27,33 +27,24 @@ export class ViewProductDetailsComponent implements OnInit {
   id;
   products: Products[] = [];
 
-   tempProd:any=[];
+  tempProd: any = [];
 
   ngOnInit(): void {
-
-    this.sub = this.route.params.subscribe(params => {
+    this.sub = this.route.params.subscribe((params) => {
       this.id = +params['id']; // (+) converts string 'id' to a number
     });
-    // this.authService
-    //   .getProductSummaryService(this.url)
-    //   .subscribe((Response) => {
-    //     console.log(Response);
-    //     this.products = Response;
-    //   });
-    this.authService.getProductById(this.url,this.id)
-    .subscribe((Response) => {
-          console.log("Result is ",Response);
-          this.tempProd.push(Response);
-          console.log(this.tempProd);
-          this.products = this.tempProd;
-        });
-
+    this.authService.getProductById(this.url, this.id).subscribe((Response) => {
+      console.log('Result is ', Response);
+      this.tempProd.push(Response);
+      console.log(this.tempProd);
+      this.products = this.tempProd;
+    });
   }
   viewClicked(shoes) {
     this.clicked = false;
 
-    this.colums = [ ...shoes, 'ButtonEdit'];
-    console.log("Custom ",shoes._value);
+    this.colums = [...shoes, 'ButtonEdit'];
+    console.log('Custom ', shoes._value);
   }
   isClicked() {
     this.clicked = true;
@@ -78,7 +69,7 @@ export class ViewProductDetailsComponent implements OnInit {
     'Manufacturer',
     'Price',
     'Quantity',
-    'ButtonEdit'
+    'ButtonEdit',
     // 'ButtonDelete'
   ];
   //
@@ -102,16 +93,16 @@ export class ViewProductDetailsComponent implements OnInit {
 
     this.authService.updateProduct(this.Url, element);
   }
- OnLoad(){
+  OnLoad() {
     this.products = this.products;
-    console.log("Products loaded")
+    console.log('Products loaded');
   }
   async deleteMultipleRows() {
     let dataArray = this.ListTobeDeleted;
     for (let i = 0; i < dataArray.length; i++) {
       this.Url = 'http://localhost:3000/comments/' + dataArray[i];
-      await this.authService.deleteProducts(this.Url).then((Response)=> {
-        console.log("Deleted")
+      await this.authService.deleteProducts(this.Url).then((Response) => {
+        console.log('Deleted');
       });
 
       this.router.routeReuseStrategy.shouldReuseRoute = () => false;
@@ -119,19 +110,16 @@ export class ViewProductDetailsComponent implements OnInit {
       this.router.navigate(['app-feature']);
     }
   }
-  deleteData(product){
+  deleteData(product) {
     this.Url = 'http://localhost:3000/comments/' + product['id'];
-    this.authService.deleteProducts(this.Url).then((Response)=> {
-      console.log("Deleted")
+    this.authService.deleteProducts(this.Url).then((Response) => {
+      console.log('Deleted');
     });
     this.router.routeReuseStrategy.shouldReuseRoute = () => false;
     this.router.onSameUrlNavigation = 'reload';
     this.router.navigate(['app-feature']);
-
   }
-  ViewProductDetail(){
-
-  }
+  ViewProductDetail() {}
   addProduct() {
     // this.authService.addProductSummaryService(this.url)
   }

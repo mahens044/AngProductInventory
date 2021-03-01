@@ -4,7 +4,7 @@ import { MatDialog } from '@angular/material/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { ActivatedRoute, Router } from '@angular/router';
 import { AuthServiceService } from '../auth-service.service';
-import { DialogLeaveComponent } from '../dialog-leave/dialog-leave.component';
+
 
 @Component({
   selector: 'app-add-product',
@@ -15,6 +15,9 @@ export class AddProductComponent implements OnInit {
   public firstname: string;
   public prod: any;
   Name;
+  value1: boolean = false;
+  DataExists: boolean = false;
+
   constructor(
     private route: ActivatedRoute,
     private authService: AuthServiceService,
@@ -32,7 +35,6 @@ export class AddProductComponent implements OnInit {
     console.log('In Add');
     // this.router.navigate(['about']);
   }
-  DataExists: boolean = false;
   Add(formData: NgForm) {
     if (formData.dirty) {
       this.DataExists = true;
@@ -56,13 +58,9 @@ export class AddProductComponent implements OnInit {
       });
     }
   }
-  value1: boolean = false;
   canExit(): boolean {
-    // value1
     if (!this.DataExists) {
-      // this.value1 = this.dialog.open(DialogLeaveComponent,any);
       if (confirm('Are you sure you want to leave')) {
-        // console.log("you ");
         return true;
       } else {
         return false;

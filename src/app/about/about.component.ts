@@ -11,12 +11,6 @@ export class AboutComponent implements OnInit {
   constructor(private authService:AuthServiceService) { }
 
   ngOnInit(): void {
-    //  this.authService.LoggedInUser();
-
-     if(!this.authService.isLoggedIn){
-       console.log(this.authService.isLoggedIn);
-      // alert('Unauthorized');
-     }
 
   }
 

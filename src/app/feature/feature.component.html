@@ -2,9 +2,6 @@
   <mat-toolbar-row>
     <h2>Product List Summary</h2>
     <span class="spacer"></span>
-    <!-- <button mat-raised-button color="accent" (click)="isClicked()">
-      Customize Product View
-    </button> -->
   </mat-toolbar-row>
 </mat-toolbar>
 <ng-container *ngIf="clicked">
@@ -22,13 +19,13 @@
     View
   </button>
 </ng-container>
-<!-- <form> -->
 
 <table mat-table [dataSource]="products" class="mat-elevation-z8">
-  <ng-container  matColumnDef="CheckBox" *ngIf='userExist'>
+  <ng-container matColumnDef="CheckBox" *ngIf="userExist">
     <th class="w-75" mat-header-cell *matHeaderCellDef>
-
-        <span class="material-icons " (click)="deleteMultipleRows()"> delete_outline </span>
+      <span class="material-icons" (click)="deleteMultipleRows()">
+        delete_outline
+      </span>
     </th>
     <td mat-cell *matCellDef="let product">
       <mat-checkbox
@@ -88,14 +85,12 @@
           View
         </button>
       </span>
-     </td>
+    </td>
   </ng-container>
 
   <tr mat-header-row *matHeaderRowDef="colums"></tr>
   <tr mat-row *matRowDef="let row; columns: colums"></tr>
 </table>
 <div *ngIf="this.products.length == 0">
-  <h2>
-  No data found
-</h2>
+  <h2>No data found</h2>
 </div>

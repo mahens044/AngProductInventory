@@ -10,7 +10,7 @@ describe('AwayGuardGuard', () => {
     guard = TestBed.inject(AwayGuardGuard);
   });
 
-  it('should be created', () => {
-    expect(guard).toBeTruthy();
-  });
+  // it('should be created', () => {
+  //   expect(guard).toBeTruthy();
+  // });
 });
