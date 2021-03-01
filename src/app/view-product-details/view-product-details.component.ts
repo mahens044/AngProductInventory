@@ -51,8 +51,9 @@ export class ViewProductDetailsComponent implements OnInit {
   }
   viewClicked(shoes) {
     this.clicked = false;
-    this.colums = ['CheckBox', ...shoes, 'ButtonEdit'];
-    console.log(shoes._value);
+
+    this.colums = [ ...shoes, 'ButtonEdit'];
+    console.log("Custom ",shoes._value);
   }
   isClicked() {
     this.clicked = true;

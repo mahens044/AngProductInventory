@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { AuthServiceService } from './auth-service.service';
 
@@ -7,13 +7,16 @@ import { AuthServiceService } from './auth-service.service';
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.css']
 })
-export class AppComponent {
+export class AppComponent implements OnInit{
   title = 'AngProductInventory';
 
   constructor(private router:Router,
               private authService:AuthServiceService){
   }
 
+  ngOnInit():void{
+    this.router.navigate(['Auth',1]);
+  }
   user = this.authService.isLoggedIn;
   ngDoCheck() {
     console.log("Inside ngDoCheck")

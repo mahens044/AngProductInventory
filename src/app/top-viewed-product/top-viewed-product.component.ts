@@ -4,6 +4,7 @@ import { Label } from 'ng2-charts';
 import { AuthServiceService } from '../auth-service.service';
 import { from } from 'rxjs';
 import { filter } from 'rxjs/operators';
+import { MatSnackBar } from '@angular/material/snack-bar';
 
 @Component({
   selector: 'app-top-viewed-product',
@@ -25,7 +26,7 @@ export class TopViewedProductComponent implements OnInit {
       },
     },
   };
-  constructor(private authService: AuthServiceService) {}
+  constructor(private authService: AuthServiceService, private _snackbar:MatSnackBar) {}
   tempResponse: any = { };
   tempObj : any ={};
   NameArr: any = [];
@@ -41,6 +42,7 @@ export class TopViewedProductComponent implements OnInit {
         this.tempResponse = Response;
 
         for (var i = 0; i < Response.length; i++) {
+
           this.NameArr[i] = Response[i].Name;
           this.ViewArr[i] = Response[i].views;
         }
@@ -74,9 +76,9 @@ export class TopViewedProductComponent implements OnInit {
   public pieChartColors = [
     {
       backgroundColor: [
-        'rgba(255,0,0,0.3)',
-        'rgba(0,255,0,0.3)',
-        'rgba(0,0,255,0.3)',
+        'rgba(205,1,0,0.7)',
+        'rgba(0,255,0,0.5)',
+        'rgba(0,0,255,0.6)',
       ],
     },
   ];
@@ -86,6 +88,12 @@ export class TopViewedProductComponent implements OnInit {
     console.log("Value " ,topProd);
     console.log("In button",this.tempResponse);
     for (var i = 0; i < topProd; i++) {
+      if(this.tempObj[i]['view'] == 0){
+        this._snackbar.open('Only '+ i +' Products have views', '', {
+          duration: 2000,
+        });
+         break;
+      }
       this.NameArr1[i] = this.tempObj[i]['name'];
       this.ViewArr1[i] = this.tempObj[i]['view'];
     }
@@ -117,12 +125,4 @@ export class TopViewedProductComponent implements OnInit {
     console.log(event, active);
   }
 
-
-
-
-  // changeLegendPosition(): void {
-  //   // this.pieChartOptions.legend.position =
-  //     // this.pieChartOptions.legend.position === 'left' ? 'top' : 'left';
-  //     this.pieChartOptions.legend.position === 'left' ;
-  // }
 }

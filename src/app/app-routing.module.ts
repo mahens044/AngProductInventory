@@ -13,6 +13,9 @@ import { ViewProductDetailsComponent } from './view-product-details/view-product
 
 const routes: Routes = [
 
+  // {
+  //   path:'Auth/1',component:AuthComponent
+  // },
   {
     path:'Auth/:id',component:AuthComponent
   },

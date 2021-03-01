@@ -34,6 +34,7 @@ import { AddProductComponent } from './add-product/add-product.component';
 import { ViewProductDetailsComponent } from './view-product-details/view-product-details.component';
 import { DialogUnauthorizedComponent } from './dialog-unauthorized/dialog-unauthorized.component';
 import { TopViewedProductComponent } from './top-viewed-product/top-viewed-product.component';
+import { DialogLeaveComponent } from './dialog-leave/dialog-leave.component';
 
 @NgModule({
   declarations: [
@@ -46,7 +47,8 @@ import { TopViewedProductComponent } from './top-viewed-product/top-viewed-produ
     AddProductComponent,
     ViewProductDetailsComponent,
     DialogUnauthorizedComponent,
-    TopViewedProductComponent
+    TopViewedProductComponent,
+    DialogLeaveComponent
   ],
   imports: [
     BrowserModule,

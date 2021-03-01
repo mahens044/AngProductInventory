@@ -43,7 +43,7 @@ export class AuthComponent implements OnInit {
 
 
   Register(formData){
-    if(formData.email && formData.password){
+    if(formData.email && formData.password && formData.First && formData.Last && formData.location && formData.mobile){
         this.authService.saveUser(formData);
         this._snackBar.open("success",'Registered',{
           duration:2000

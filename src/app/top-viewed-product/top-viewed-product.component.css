@@ -1,10 +1,6 @@
 .chart{
   size: 20px;
-  /* height:10px; */
   width: 60%;
-  /* width="100" */
-  /* align-items: center;
-  text-align: center; */
   appearance: center;
   align-content: center;
 }
@@ -18,5 +14,5 @@ input{
 }
 
 label{
-  color: cadetblue;
+  color: darkgreen;
 }

@@ -6,8 +6,11 @@
   <mat-label>Product Name</mat-label>
   <input
   matInput
+  type="text"
   name="Name"
   ngModel
+  required
+  min="3"
 
   >
 </mat-form-field>
@@ -23,22 +26,26 @@
   <textarea matInput
   name="Description"
   ngModel
+  required
   ></textarea>
 </mat-form-field>
 
 <mat-form-field appearance="fill">
   <mat-label>Manufacturer</mat-label>
-  <input matInput
+  <input matInput type="text"
   name="Manufacturer"
   ngModel
+  required
   >
 </mat-form-field>
 
 <mat-form-field appearance="fill">
-  <mat-label>Price</mat-label>
+  <mat-label>Price(Rupees)</mat-label>
   <input matInput
+  type="number"
   name="Price"
   ngModel
+  required
   >
 </mat-form-field>
 
@@ -46,7 +53,9 @@
   <mat-label>Quantity</mat-label>
   <input type="number" matInput
   name="Quantity"
+  type="number"
   ngModel
+  required
   >
 </mat-form-field>
 <mat-card-actions class="button-align">
