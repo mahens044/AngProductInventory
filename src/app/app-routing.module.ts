@@ -8,6 +8,7 @@ import { AuthGuard } from './auth/auth.guard';
 import { AwayGuardGuard } from './away-guard.guard';
 import { FeatureComponent } from './feature/feature.component';
 import { LogOutComponent } from './log-out/log-out.component';
+import { LoggedUserComponent } from './logged-user/logged-user.component';
 import { TopViewedProductComponent } from './top-viewed-product/top-viewed-product.component';
 import { ViewProductDetailsComponent } from './view-product-details/view-product-details.component';
 
@@ -45,7 +46,10 @@ const routes: Routes = [
     path:'app-top-viewed-product',component:TopViewedProductComponent
     // canActivate:[AuthGuard]
   }
-
+  ,
+  {
+    path:'UserInfo',component:LoggedUserComponent
+  }
 
 ];
 

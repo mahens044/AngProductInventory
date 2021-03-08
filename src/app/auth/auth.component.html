@@ -1,3 +1,4 @@
+
 <div *ngIf="id == 1">
   <mat-card class="custom-card">
     <mat-card-title class="custom-font"> Login </mat-card-title>
@@ -28,7 +29,7 @@
             matInput
             ngModel
             #password="ngModel"
-            minlength="5"
+            minlength="8"
             required
           />
           <mat-error *ngIf="password.touched">
@@ -44,7 +45,7 @@
       </form></mat-card-content
     >
   </mat-card>
-  >
+
 </div>
 
 <div *ngIf="id == 0">
@@ -81,7 +82,7 @@
             ngModel
             #password="ngModel"
             required
-            minlength="5"
+            minlength="8"
           />
           <mat-error *ngIf="password.touched">
             <p *ngIf="password.errors?.required">password required</p>
@@ -99,7 +100,7 @@
           <input type="text" name="Last" ngModel matInput required />
         </mat-form-field>
         <mat-form-field appearance="outline">
-          <mat-label>Location</mat-label>
+          <mat-label class="list1">Location</mat-label>
           <mat-select ngModel="Locations" name="location" required>
             <!-- <mat-option [value]="">Location</mat-option> -->
             <mat-option *ngFor="let des of Locations" [value]="des.location">
@@ -138,5 +139,3 @@
     </mat-card-content>
   </mat-card>
 </div>
-
-<div></div>

@@ -48,7 +48,9 @@ export class AddProductComponent implements OnInit {
       formData.value['Price'] &&
       formData.value['Quantity']
     ) {
-      this.authService.saveAddProduct(formData.value).subscribe((Response) => {
+      this.authService.saveAddProduct(formData.value)
+
+      .subscribe((Response) => {
         console.log('Form Data:', Response);
         this.router.navigate(['app-feature']);
       });

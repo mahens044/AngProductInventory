@@ -29,4 +29,7 @@ export class AppComponent implements OnInit {
     console.log('isLoggedIn ' + this.authService.isLoggedIn);
     console.log('user  ' + this.user);
   }
+  CurrentUser;
+
+
 }

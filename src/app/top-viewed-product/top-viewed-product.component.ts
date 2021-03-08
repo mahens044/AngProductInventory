@@ -3,6 +3,7 @@ import { ChartType, ChartOptions } from 'chart.js';
 import { Label } from 'ng2-charts';
 import { AuthServiceService } from '../auth-service.service';
 import { MatSnackBar } from '@angular/material/snack-bar';
+import { NgxSpinnerService } from 'ngx-spinner';
 
 @Component({
   selector: 'app-top-viewed-product',
@@ -26,7 +27,8 @@ export class TopViewedProductComponent implements OnInit {
   };
   constructor(
     private authService: AuthServiceService,
-    private _snackbar: MatSnackBar
+    private _snackbar: MatSnackBar,
+    private spinner: NgxSpinnerService
   ) {}
   tempResponse: any = {};
   tempObj: any = {};
@@ -34,13 +36,17 @@ export class TopViewedProductComponent implements OnInit {
   ViewArr: any = [];
   NameArr1: any = [];
   ViewArr1: any = [];
-
+  prodCount:number;
   ngOnInit(): void {
+    this.spinner.show();
     this.authService
-      .getProductSummaryService('http://localhost:3000/comments')
+      .getProductSummaryService()
+
       .subscribe((Response) => {
-        console.log('Top ', Response[0]['Name']);
         this.tempResponse = Response;
+        this.prodCount=Response.length;
+        if(this.prodCount == 0)
+        this.spinner.hide();
 
         for (var i = 0; i < Response.length; i++) {
           this.NameArr[i] = Response[i].Name;
@@ -49,6 +55,7 @@ export class TopViewedProductComponent implements OnInit {
 
         this.tempObj = this.combineArrays(this.NameArr, this.ViewArr);
         console.log(this.tempObj);
+        this.spinner.hide();
         console.log(
           this.tempObj.sort(function (a, b) {
             return b.view - a.view;
@@ -71,7 +78,6 @@ export class TopViewedProductComponent implements OnInit {
 
   public pieChartType: ChartType = 'pie';
   public pieChartLegend = true;
-  // public pieChartPlugins = [pluginDataLabels];
   public pieChartColors = [
     {
       backgroundColor: [
@@ -86,7 +92,14 @@ export class TopViewedProductComponent implements OnInit {
     // topProd = this.tempResponse.length;
     console.log('Value ', topProd);
     console.log('In button', this.tempResponse);
+
     for (var i = 0; i < topProd; i++) {
+      if(this.prodCount < topProd){
+        this._snackbar.open('Only ' + this.prodCount + ' Products are available', '', {
+          duration: 2000,
+        });
+        topProd =  this.prodCount
+      }
       if (this.tempObj[i]['view'] == 0) {
         this._snackbar.open('Only ' + i + ' Products have views', '', {
           duration: 2000,
@@ -100,7 +113,7 @@ export class TopViewedProductComponent implements OnInit {
     this.pieChartLabels = this.NameArr1;
 
     this.pieChartData = this.ViewArr1;
-    console.log(this.NameArr1);
+    console.log("Name Arr",this.NameArr1);
   }
   // events
   public chartClicked({

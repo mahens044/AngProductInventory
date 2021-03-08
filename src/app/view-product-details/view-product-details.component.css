@@ -23,3 +23,43 @@ table {
 .example-sidenav {
   padding: 20px;
 }
+.align-1{
+  margin: 10px;
+  padding : 5px
+}
+
+@media only screen and (max-width: 380px) {
+button,th{
+  white-space: nowrap;
+  overflow: hidden;
+  width: 65px;
+  text-overflow: ellipsis;
+
+}
+table {
+  width: 100%;
+  /* margin-left: 20%; */
+}
+.example-container {
+  width: 500px;
+  height: 300px;
+  border: 1px solid rgba(0, 0, 0, 0.5);
+}
+.w-75{
+  width: 55px;
+}
+.spacer {
+  flex: 1 1 auto;
+}
+.example-sidenav-content {
+  display: flex;
+  height: 100%;
+  align-items: center;
+  justify-content: center;
+}
+
+.example-sidenav {
+  padding: 10px;
+}
+
+}

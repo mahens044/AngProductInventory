@@ -1,9 +1,37 @@
+<ngx-spinner *ngIf="this.products.length == 0"
+  bdColor="rgba(51,51,51,0.8)"
+  size="medium"
+  color="white"
+  type="ball-scale-multiple"
+>
+  <p style="font-size: 20px; color: white">Loading...</p>
+
+</ngx-spinner>
 <mat-toolbar>
   <mat-toolbar-row>
-    <h2>Product List Summary</h2>
+    <h2 class="align1">Product List Summary</h2>
+
     <span class="spacer"></span>
+
+    <span class="material-icons addButton" title="Add product" [routerLink]="'/app-add-product'">
+      add_task
+      <!-- <button mat-raised-button
+        matTooltip="Info about the action"
+        aria-label="Button that displays a tooltip when focused or hovered over">
+
+</button> -->
+      </span>
+    <div class="example-header">
+
+      <mat-form-field>
+        <input matInput (keyup)="applyFilter($event.target.value)" placeholder="Filter">
+      </mat-form-field>
+    </div>
   </mat-toolbar-row>
 </mat-toolbar>
+
+
+
 <ng-container *ngIf="clicked">
   <mat-selection-list #shoes>
     <mat-list-option *ngFor="let header of tableHeaders" [value]="header">
@@ -20,7 +48,7 @@
   </button>
 </ng-container>
 
-<table mat-table [dataSource]="products" class="mat-elevation-z8">
+<table mat-table [dataSource]="dataSource" class="mat-elevation-z8">
   <ng-container matColumnDef="CheckBox" *ngIf="userExist">
     <th class="w-75" mat-header-cell *matHeaderCellDef>
       <span class="material-icons" (click)="deleteMultipleRows()">
@@ -66,7 +94,6 @@
       </div>
       <div *ngIf="product.isEdit">
         <mat-form-field>
-          <!-- <mat-label>{{ product }}</mat-label> -->
           <input
             type="text"
             matInput
@@ -91,6 +118,8 @@
   <tr mat-header-row *matHeaderRowDef="colums"></tr>
   <tr mat-row *matRowDef="let row; columns: colums"></tr>
 </table>
-<div *ngIf="this.products.length == 0">
-  <h2>No data found</h2>
+
+<div *ngIf="this.displayResult">
+  <br>
+  <h2 class="align1">No data found</h2>
 </div>

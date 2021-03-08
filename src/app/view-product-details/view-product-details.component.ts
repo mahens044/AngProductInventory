@@ -1,7 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
+import { NgxSpinnerService } from 'ngx-spinner';
 import { AuthServiceService } from '../auth-service.service';
-import { Products } from '../users';
+import { Products } from '../productsModel';
 
 @Component({
   selector: 'app-view-product-details',
@@ -12,9 +13,13 @@ export class ViewProductDetailsComponent implements OnInit {
   constructor(
     private authService: AuthServiceService,
     private router: Router,
-    private route: ActivatedRoute
+    private route: ActivatedRoute,
+    private spinner: NgxSpinnerService
   ) {}
-  url: string = 'http://localhost:3000/comments';
+
+  Url;
+  buttonName = 'Edit';
+
   tableHeaders: string[] = [
     'Name',
     'Description',
@@ -30,13 +35,15 @@ export class ViewProductDetailsComponent implements OnInit {
   tempProd: any = [];
 
   ngOnInit(): void {
+    // console.log("Id is ",this.route.params.);
+
     this.sub = this.route.params.subscribe((params) => {
-      this.id = +params['id']; // (+) converts string 'id' to a number
+      this.id = params['id']; // (+) converts string 'id' to a number
+
     });
-    this.authService.getProductById(this.url, this.id).subscribe((Response) => {
-      console.log('Result is ', Response);
+    var Ur = 'https://capstoneangular-default-rtdb.firebaseio.com/products/'+this.id;
+    this.authService.getProductById(Ur, this.id).subscribe((Response) => {
       this.tempProd.push(Response);
-      console.log(this.tempProd);
       this.products = this.tempProd;
     });
   }
@@ -72,38 +79,34 @@ export class ViewProductDetailsComponent implements OnInit {
     'ButtonEdit',
     // 'ButtonDelete'
   ];
-  //
-  getProductSummary() {
-    this.authService
-      .getProductSummaryService(this.url)
-      .subscribe((Response) => {
-        console.log(Response);
-        this.products = Response;
-      });
-  }
-  Url;
-  buttonName = 'Edit';
   UpdateData(element) {
     element.isEdit = !element.isEdit;
+    this.sub = this.route.params.subscribe((params) => {
+      this.id = params['id'];
+    });
+
     if (element.isEdit) this.buttonName = 'Done';
     else this.buttonName = 'Edit';
-    this.Url = 'http://localhost:3000/comments/' + element['id'];
-    console.log('Update data with ' + JSON.stringify(element));
-    console.log('Update data with ' + element['CheckBox']);
+    this.Url = 'https://capstoneangular-default-rtdb.firebaseio.com/products/' + this.id+'.json';
+
 
     this.authService.updateProduct(this.Url, element);
   }
-  OnLoad() {
-    this.products = this.products;
-    console.log('Products loaded');
-  }
+
   async deleteMultipleRows() {
     let dataArray = this.ListTobeDeleted;
+    this.spinner.show();
+    if(dataArray.length == 0)
+    this.spinner.hide();
+
     for (let i = 0; i < dataArray.length; i++) {
       this.Url = 'http://localhost:3000/comments/' + dataArray[i];
       await this.authService.deleteProducts(this.Url).then((Response) => {
         console.log('Deleted');
+        if(i == dataArray.length-1)
+        this.spinner.hide();
       });
+
 
       this.router.routeReuseStrategy.shouldReuseRoute = () => false;
       this.router.onSameUrlNavigation = 'reload';
@@ -111,7 +114,12 @@ export class ViewProductDetailsComponent implements OnInit {
     }
   }
   deleteData(product) {
-    this.Url = 'http://localhost:3000/comments/' + product['id'];
+
+    this.sub = this.route.params.subscribe((params) => {
+      this.id = params['id'];
+    });
+    this.Url = 'https://capstoneangular-default-rtdb.firebaseio.com/products/' + this.id+'.json';
+
     this.authService.deleteProducts(this.Url).then((Response) => {
       console.log('Deleted');
     });
@@ -119,8 +127,5 @@ export class ViewProductDetailsComponent implements OnInit {
     this.router.onSameUrlNavigation = 'reload';
     this.router.navigate(['app-feature']);
   }
-  ViewProductDetail() {}
-  addProduct() {
-    // this.authService.addProductSummaryService(this.url)
-  }
+
 }

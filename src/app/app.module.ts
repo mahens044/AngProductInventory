@@ -1,7 +1,6 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { ChartsModule } from 'ng2-charts';
-
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { AuthComponent } from './auth/auth.component';
@@ -9,6 +8,7 @@ import { AboutComponent } from './about/about.component';
 import { MatSliderModule } from '@angular/material/slider';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatIconModule } from '@angular/material/icon';
+
 import { MatButtonModule } from '@angular/material/button';
 import { MatCardModule } from '@angular/material/card';
 import { MatFormFieldModule } from '@angular/material/form-field';
@@ -21,8 +21,10 @@ import { MatListModule } from '@angular/material/list';
 import { MatTableModule } from '@angular/material/table';
 import { MatDialogModule } from '@angular/material/dialog';
 import { MatCheckboxModule } from '@angular/material/checkbox';
+import {MatGridListModule} from '@angular/material/grid-list';
 
 import { MatSidenav, MatSidenavModule } from '@angular/material/sidenav';
+import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
 
 import { from } from 'rxjs';
 import { HttpClientModule } from '@angular/common/http';
@@ -34,27 +36,36 @@ import { AddProductComponent } from './add-product/add-product.component';
 import { ViewProductDetailsComponent } from './view-product-details/view-product-details.component';
 import { DialogUnauthorizedComponent } from './dialog-unauthorized/dialog-unauthorized.component';
 import { TopViewedProductComponent } from './top-viewed-product/top-viewed-product.component';
+import { LoggedUserComponent } from './logged-user/logged-user.component';
+import { NgxSpinnerModule } from 'ngx-spinner';
+
 
 @NgModule({
   declarations: [
     AppComponent,
+
     AuthComponent,
     AboutComponent,
     FeatureComponent,
     DialogComponent,
+
     LogOutComponent,
     AddProductComponent,
     ViewProductDetailsComponent,
     DialogUnauthorizedComponent,
     TopViewedProductComponent,
+    LoggedUserComponent
+
   ],
   imports: [
     BrowserModule,
+    MatGridListModule,
     AppRoutingModule,
     MatSliderModule,
     MatToolbarModule,
     FormsModule,
     ChartsModule,
+    NgxSpinnerModule,
     MatFormFieldModule,
     MatInputModule,
     MatIconModule,
@@ -62,6 +73,8 @@ import { TopViewedProductComponent } from './top-viewed-product/top-viewed-produ
     MatCardModule,
     MatFormFieldModule,
     HttpClientModule,
+    MatProgressSpinnerModule,
+
     MatSidenavModule,
     MatSnackBarModule,
     MatMenuModule,
@@ -70,6 +83,7 @@ import { TopViewedProductComponent } from './top-viewed-product/top-viewed-produ
     MatSelectModule,
     MatDialogModule,
     MatCheckboxModule,
+
     NoopAnimationsModule,
   ],
   providers: [],

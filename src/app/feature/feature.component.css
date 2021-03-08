@@ -1,6 +1,21 @@
 table {
   width: 60%;
+  /* margin-left: auto;
+  margin-right: auto; */
   /* margin-left: 20%; */
+}
+.flex1{
+  display: flex;
+  flex-direction: column;
+align-items: flex-end;
+}
+.addButton{
+  cursor: pointer;
+}
+h2{
+  text-align: center;
+  margin-left: 36%;
+  align-content: center;
 }
 .example-container {
   width: 500px;
@@ -9,6 +24,10 @@ table {
 }
 .w-75 {
   width: 75px;
+  cursor: pointer;
+}
+.dele{
+  cursor: pointer;
 }
 .spacer {
   flex: 1 1 auto;
@@ -23,3 +42,41 @@ table {
 .example-sidenav {
   padding: 20px;
 }
+.example-container {
+  display: flex;
+  flex-direction: column;
+  min-width: 300px;
+}
+
+.example-header {
+  min-height: 64px;
+  padding: 8px 24px 0;
+}
+
+.mat-form-field {
+  font-size: 14px;
+  width: 100%;
+}
+
+.mat-table {
+  overflow: auto;
+  max-height: 500px;
+}
+.align1{
+  align-content: center;
+  margin: auto;
+}
+
+@media only screen and (max-width: 380px) {
+table {
+  width: 85%;
+  margin-left: auto;
+  margin-right: auto;
+  /* margin-left: 20%; */
+}
+h2{
+  text-align: center;
+  margin-left: -5px;
+  /* margin-left: 540px; */
+  align-content: center;
+}}

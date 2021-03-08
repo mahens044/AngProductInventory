@@ -3,6 +3,11 @@
   margin-right: 35%;
 
 }
+.align1{
+  color: aqua;
+  text-align: center;
+
+}
 .custom-form-content{
   text-align: center;
 }
@@ -31,19 +36,121 @@
   padding-top: 5px;
   margin-bottom: 14px;
 }
-/* form { */
-   /* min-width: 150px; */
-  /* max-width: 200px;
-  text-align: center;
-  margin-top: 6%;
-  width: 80%; */
-/* } */
-/* button{ */
-  /* text-align: end; */
-  /* margin-left: 432px; */
-  /* margin-top: 10%; */
-/* } */
 
-button{
-  /* width: 270px; */
+@media only screen and (max-width: 600px) {
+
+  .custom-card{
+    margin-left:5%;
+    margin-right: 5%;
+
+  }
+  .custom-form-content{
+    text-align: center;
+  }
+  .example-container .mat-form-field + .mat-form-field {
+    margin-left: 8px;
+    margin-right: 8px;
+    padding: 2px;
+  }
+  .mat-form-field{
+    width: 100px;
+  }
+  .button-align{
+    /* margin-left: 210px; */
+    text-align: center;
+    margin-bottom: px;
+
+  }
+  .mat-label{
+    font-size: 20px;
+    font-style: oblique;
+    font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
+  }
+  .custom-font{
+    font-size: 1.2rem;
+    text-align: center;
+    padding-top: 5px;
+    margin-bottom: 14px;
+  }
+
+}
+
+
+@media only screen and (max-width: 780px) {
+
+  .custom-card{
+    margin-left:15%;
+    margin-right: 15%;
+
+  }
+  .custom-form-content{
+    text-align: center;
+  }
+  .example-container .mat-form-field + .mat-form-field {
+    margin-left: 6px;
+    margin-right: 6px;
+    padding: 2px;
+  }
+  .mat-form-field{
+    width: 270px;
+  }
+  .button-align{
+    /* margin-left: 210px; */
+    text-align: center;
+    margin-bottom: px;
+
+  }
+  .mat-label{
+    font-size: 20px;
+    font-style: oblique;
+    font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
+  }
+  .custom-font{
+    font-size: 1.2rem;
+    text-align: center;
+    padding-top: 5px;
+    margin-bottom: 14px;
+  }
+}
+
+
+@media only screen and (max-width: 380px) {
+
+  .custom-card{
+    margin-left:10%;
+    margin-right: 10%;
+
+  }
+  .list{
+    width: 180px;
+  }
+  .custom-form-content{
+    text-align: center;
+  }
+  .example-container .mat-form-field + .mat-form-field {
+    margin-left: 6px;
+    margin-right: 6px;
+    padding: 2px;
+  }
+  .mat-form-field{
+    width: 180px;
+  }
+  .button-align{
+    /* margi8-left: 210px; */
+    text-align: center;
+    margin-bottom: px;
+
+  }
+  .mat-label{
+    font-size: 20px;
+    font-style: oblique;
+    font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
+  }
+  .custom-font{
+    font-size: 1.2rem;
+    text-align: center;
+    padding-top: 5px;
+    margin-bottom: 14px;
+  }
+
 }

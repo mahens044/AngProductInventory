@@ -1,4 +1,4 @@
-import { MatCheckbox } from '@angular/material/checkbox';
+// import { MatCheckbox } from '@angular/material/checkbox';
 
 export class Products{
   // CheckBox: MatCheckbox;
@@ -8,9 +8,10 @@ export class Products{
   Price : string;
   Quantity : string ;
   completed: boolean;
+  // id:string;
   views:number;
 
-  constructor(Name, Description, Manufacturer, Price, Quantity,completed){
+  constructor(Name, Description, Manufacturer, Price, Quantity,id,completed){
     // this.CheckBox =check;
     this.Name = Name;
     this.Description = Description;
@@ -18,6 +19,7 @@ export class Products{
     this.Price = Price ;
     this.Quantity = Quantity;
     this.completed = false;
+    // this.id=id;
     this.views = 0;
   }
 

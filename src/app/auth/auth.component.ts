@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import {  NgForm } from '@angular/forms';
+import { NgForm } from '@angular/forms';
 import { HttpClient } from '@angular/common/http';
 import { AuthServiceService } from '../auth-service.service';
 import { MatSnackBar } from '@angular/material/snack-bar';
@@ -24,6 +24,7 @@ export class AuthComponent implements OnInit {
 
   public state = '';
   id: number;
+  isLoading: boolean = false;
   private sub: any;
   Locations: any = [{ location: 'chennai' }, { location: 'hyd' }];
 
@@ -37,7 +38,7 @@ export class AuthComponent implements OnInit {
       }
     });
   }
-
+  emailExists: boolean = true;
   Register(formData) {
     if (
       formData.email &&
@@ -47,34 +48,61 @@ export class AuthComponent implements OnInit {
       formData.location &&
       formData.mobile
     ) {
-      this.authService.saveUser(formData);
-      this._snackBar.open('success', 'Registered', {
-        duration: 2000,
-      });
-      this.router.navigate(['Auth', '1']);
+      this.authService.saveUser(formData.email, formData.password).subscribe(
+        (res) => {
+          console.log('Auth Data ', res);
+          this.authService.storeUser(formData).subscribe((Response) => {
+            console.log('stored data ', Response.Email);
+            this._snackBar.open('success', 'Registered', {
+              duration: 2000,
+            });
+            this.router.navigate(['Auth', '1']);
+          });
+        },
+        (err) => {
+          console.log('Auth Data ', err);
+          this._snackBar.open('User exists already', 'Registered', {
+            duration: 2000,
+          });
+
+          this.emailExists = false;
+        }
+      );
     } else {
       this.dialog.open(DialogComponent);
     }
   }
   user = this.authService.isLoggedIn;
 
-  async Login(LoginData: NgForm) {
+  Login(LoginData: NgForm) {
     var email = LoginData.form.value.email;
     var pswd = LoginData.form.value.password;
+
     if (email && pswd) {
       // var val = new Promise((resolve,reject) => {
-      await this.authService.checkDB(email, pswd, (status) => {
-        // console.log(status)
-        console.log('11 val' + Response);
+      this.isLoading = true;
+      console.log('Load ', this.isLoading);
 
-        LoginData.resetForm();
-        this.user = this.authService.isLoggedIn;
-        console.log('12 isLoggedIn ' + this.authService.isLoggedIn);
-        this.router.navigate(['about']);
-      });
-    } else {
-      LoginData.resetForm();
-      this.dialog.open(DialogComponent);
+      this.authService.checkDB(email, pswd).subscribe((Response) => {
+
+        this.user = true;
+
+        this.authService.isLoggedIn = true;
+        this.isLoading = false;
+
+        if (Response['registered'] == true) {
+          this.router.navigate(['app-feature']);
+        }
+      },
+      (error) =>{
+        console.error('error caught in component')
+        console.log("Pass ",error.error.error.message);
+        this._snackBar.open(error.error.error.message, '', {
+          duration: 2000,
+        });
+
+      }
+      );
     }
   }
 }

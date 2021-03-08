@@ -1,8 +1,16 @@
 import { Component, OnInit } from '@angular/core';
 import { MatSnackBar } from '@angular/material/snack-bar';
+import { MatTableDataSource } from '@angular/material/table';
 import { Router } from '@angular/router';
+import { NgxSpinnerService } from "ngx-spinner";
+
 import { AuthServiceService } from '../auth-service.service';
-import { Products } from '../users';
+import { Products } from '../productsModel';
+
+export interface UserData {
+  Name: string;
+  Description: string;
+}
 
 @Component({
   selector: 'app-feature',
@@ -13,8 +21,10 @@ export class FeatureComponent implements OnInit {
   constructor(
     private authService: AuthServiceService,
     private _snackBar: MatSnackBar,
-    private router: Router
+    private router: Router,
+    private spinner: NgxSpinnerService
   ) {}
+  products: Products[] = [];
 
   url: string = 'http://localhost:3000/comments';
   tableHeaders: string[] = [
@@ -26,28 +36,54 @@ export class FeatureComponent implements OnInit {
   ];
   clicked = false;
   userExist;
+   displayResult:boolean = false;
+  dataSource: MatTableDataSource<UserData>;
   ngOnInit(): void {
+    this.spinner.show();
     this.userExist = this.authService.isLoggedIn;
     if (this.userExist) {
       this.displayCheckBox();
     }
+    this.fetchProducts(); //.unsubscribe();
+  }
 
-    this.authService
-      .getProductSummaryService(this.url)
+  fetchProducts() {
+    console.log('Private start');
+
+    return this.authService
+      .getProductSummaryService()
+
+
       .subscribe((Response) => {
-        console.log(Response);
         this.products = Response;
+        this.dataSource = new MatTableDataSource(this.products);
+        console.log('Res ', this.dataSource);
         if (this.products.length == 0) {
-          this._snackBar.open('No data Found', ' No', {
+          this.spinner.hide();
+           this.displayResult = true;
+          this._snackBar.open('No data Found', ' Empty', {
             duration: 2000,
           });
 
           console.log('No data' + this.products);
         }
+        else{
+          console.log("Inside list ")
+          this.spinner.hide();
+        }
       });
+  }
+
+  applyFilter(filterValue: string) {
+    filterValue = filterValue.trim(); // Remove whitespace
+    filterValue = filterValue.toLowerCase(); // Datasource defaults to lowercase matches
+    this.dataSource.filter = filterValue;
   }
   displayCheckBox() {
     this.colums = ['CheckBox', 'Name', 'Description', 'ButtonView'];
+  }
+  ViewFilter(FilterItem) {
+    console.log(FilterItem);
   }
   viewClicked(shoes) {
     this.clicked = false;
@@ -80,32 +116,23 @@ export class FeatureComponent implements OnInit {
     // 'Quantity',
     'ButtonView',
   ];
-  products: Products[] = [];
-  getProductSummary() {
-    this.authService
-      .getProductSummaryService(this.url)
-      .subscribe((Response) => {
-        console.log(Response);
-        this.products = Response;
-      });
-  }
+
   Url;
   buttonName = 'Edit';
-
   ViewData(productData) {
-    // console.log(productData['views']);
-    if (this.authService.isLoggedIn)
+    console.log('Logged ', this.authService.isLoggedIn);
+    if(this.authService.isLoggedIn)
       productData['views'] = +productData['views'] + 1;
 
     console.log(productData['views']);
     console.log('Updated view ', productData);
-    this.Url = 'http://localhost:3000/comments/' + productData['id'];
+    this.Url = 'https://capstoneangular-default-rtdb.firebaseio.com/products/' + productData['id']+'.json';
     this.authService
       .UpdateViews(this.Url, productData)
       .subscribe((Response) => {
-        // console.log("Response in ViedData ",Response)  ;
-        // console.log("Response in ViedData ",Response['id']);
-        this.router.navigate(['app-view-product-details', Response['id']]);
+        console.log("Hey ",productData['id']);
+
+        this.router.navigate(['app-view-product-details', productData['id']]);
       });
   }
   UpdateData(element) {
@@ -125,9 +152,12 @@ export class FeatureComponent implements OnInit {
   async deleteMultipleRows() {
     let dataArray = this.ListTobeDeleted;
     for (let i = 0; i < dataArray.length; i++) {
-      this.Url = 'http://localhost:3000/comments/' + dataArray[i];
+      // this.Url = 'http://localhost:3000/comments/' + dataArray[i];
+      this.Url = 'https://capstoneangular-default-rtdb.firebaseio.com/products/' + dataArray[i]+'.json';
+
       await this.authService.deleteProducts(this.Url).then((Response) => {
-        console.log('Deleted');
+        console.log('Deleted ',dataArray);
+        console.log('List to be Deleted ',this.ListTobeDeleted);
       });
 
       this.router.routeReuseStrategy.shouldReuseRoute = () => false;

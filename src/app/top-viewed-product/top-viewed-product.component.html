@@ -1,17 +1,30 @@
+<ngx-spinner
+  bdColor="rgba(51,51,51,0.8)"
+  size="medium"
+  color="white"
+  type="ball-scale-multiple"
+>
+  <p style="font-size: 20px; color: white">Loading...</p>
+
+</ngx-spinner>
+
 <div>
   <div>
     <br>
-    <div class="View">
-    <label>Show top </label>
-    <input type="number"
-    [(ngModel)] ="topProd"
-    min=1
-    [max] = "this.tempResponse.length"
-    >
-    <label> viewed products</label>
+    <div class="View" *ngIf="prodCount > 0; else checkProdCount">
+      <label>Show top </label>
+      <input type="number"
+      [(ngModel)] ="topProd"
+      min=1
+      [max] = "this.tempResponse.length"
+      >
+      <label> viewed products</label>
 
-    <button mat-raised-button color="primary" (click)="changeLabels(topProd)">View</button>
-  </div>
+      <button mat-raised-button color="primary" (click)="changeLabels(topProd)">View</button>
+    </div>
+    <ng-template #checkProdCount>
+      <h2>No data to show</h2>
+      </ng-template>
     <div class="chart">
       <canvas baseChart
         [data]="pieChartData"

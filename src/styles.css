@@ -3,3 +3,40 @@
 html, body { height: 100%; }
 body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
 
+@media only screen and (max-width: 600px) {
+
+  .custom-card{
+    margin-left:25%;
+    margin-right: 25%;
+
+  }
+  .custom-form-content{
+    text-align: center;
+  }
+  .example-container .mat-form-field + .mat-form-field {
+    margin-left: 8px;
+    margin-right: 8px;
+    padding: 2px;
+  }
+  .mat-form-field{
+    width: 100px;
+  }
+  .button-align{
+    /* margin-left: 210px; */
+    text-align: center;
+    margin-bottom: px;
+
+  }
+  .mat-label{
+    font-size: 20px;
+    font-style: oblique;
+    font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
+  }
+  .custom-font{
+    font-size: 1.2rem;
+    text-align: center;
+    padding-top: 5px;
+    margin-bottom: 14px;
+  }
+
+}
