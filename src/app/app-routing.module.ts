@@ -31,6 +31,10 @@ const routes: Routes = [
   },
   {
     path:'app-add-product',component:AddProductComponent,
+    children:[{
+      path:'about',
+      component:AboutComponent
+    }],
     canActivate:[AuthGuard],
     canDeactivate:[AwayGuardGuard]
 

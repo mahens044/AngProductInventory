@@ -17,6 +17,7 @@ export class AwayGuardGuard implements CanDeactivate<AddProductComponent> {
       //   alert("Are you sure  ")
       //   return false;
       // }
+      // return component.canExit ? component.canExit() : false;
     return component.canExit();
 
   }

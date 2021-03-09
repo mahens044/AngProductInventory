@@ -4,7 +4,13 @@ import { MatDialog } from '@angular/material/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { ActivatedRoute, Router } from '@angular/router';
 import { AuthServiceService } from '../auth-service.service';
+import swal from 'sweetalert2';
+import Swal from 'sweetalert2';
+import { MatConfirmDialogComponent } from '../mat-confirm-dialog/mat-confirm-dialog.component';
 
+import { Inject } from '@angular/core';
+import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { Observable } from 'rxjs';
 
 @Component({
   selector: 'app-add-product',
@@ -33,6 +39,7 @@ export class AddProductComponent implements OnInit {
   ngOnInit(): void {}
   ngDoCheck() {
     console.log('In Add');
+    // const val =
     // this.router.navigate(['about']);
   }
   Add(formData: NgForm) {
@@ -48,25 +55,57 @@ export class AddProductComponent implements OnInit {
       formData.value['Price'] &&
       formData.value['Quantity']
     ) {
-      this.authService.saveAddProduct(formData.value)
+      this.authService
+        .saveAddProduct(formData.value)
 
-      .subscribe((Response) => {
-        console.log('Form Data:', Response);
-        this.router.navigate(['app-feature']);
-      });
+        .subscribe((Response) => {
+          console.log('Form Data:', Response);
+          this.router.navigate(['app-feature']);
+        });
     } else {
       this._snackBar.open('Please enter all fields', '', {
         duration: 2000,
       });
     }
   }
-  canExit(): boolean {
+  navigate1() {
+    this.router.navigate(['about']);
+  }
+
+  val: boolean = false;
+  async canExit(): Promise<any> {
     if (!this.DataExists) {
-      if (confirm('Are you sure you want to leave')) {
+      const dialogRef = this.dialog.open(MatConfirmDialogComponent, {
+        width: '250px',
+        height:'170',
+        position: { top: "10px" },
+
+        disableClose: true,
+        data: { leave: 'Out' },
+    });
+
+      await dialogRef
+        .afterClosed()
+        .toPromise()
+        .then((Response) => {
+          if (Response.length == 0) {
+            console.log(Response.length);
+            console.log('The dialog was closed', Response);
+            this.val = false;
+          }
+          else{
+            this.val = true;
+          }
+        });
+      if (this.val == true) {
         return true;
       } else {
         return false;
       }
-    } else return true;
+
+    } else {
+      console.log('Closed not');
+      return false;
+    }
   }
 }

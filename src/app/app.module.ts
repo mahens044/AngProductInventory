@@ -25,7 +25,7 @@ import {MatGridListModule} from '@angular/material/grid-list';
 
 import { MatSidenav, MatSidenavModule } from '@angular/material/sidenav';
 import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
-
+import {MatConfirmDialogComponent} from './mat-confirm-dialog/mat-confirm-dialog.component';
 import { from } from 'rxjs';
 import { HttpClientModule } from '@angular/common/http';
 import { FeatureComponent } from './feature/feature.component';
@@ -48,10 +48,10 @@ import { NgxSpinnerModule } from 'ngx-spinner';
     AboutComponent,
     FeatureComponent,
     DialogComponent,
-
     LogOutComponent,
     AddProductComponent,
     ViewProductDetailsComponent,
+    MatConfirmDialogComponent,
     DialogUnauthorizedComponent,
     TopViewedProductComponent,
     LoggedUserComponent
@@ -63,6 +63,7 @@ import { NgxSpinnerModule } from 'ngx-spinner';
     AppRoutingModule,
     MatSliderModule,
     MatToolbarModule,
+    MatDialogModule,
     FormsModule,
     ChartsModule,
     NgxSpinnerModule,

@@ -26,7 +26,7 @@ export class FeatureComponent implements OnInit {
   ) {}
   products: Products[] = [];
 
-  url: string = 'http://localhost:3000/comments';
+  // url: string = 'http://localhost:3000/comments';
   tableHeaders: string[] = [
     'Name',
     'Description',
